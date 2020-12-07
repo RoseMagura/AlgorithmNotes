@@ -85,23 +85,7 @@ def test_function(test_case):
         print("Fail!")
 
 
-array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-target = 4
-index = 4
-test_case = [array, target, index]
-test_function(test_case)
 
-array = [1, 2]
-target = -20
-index = -1
-test_case = [array, target, index]
-# test_function(test_case)
-
-array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-target = 100
-index = -1
-test_case = [array, target, index]
-# test_function(test_case)
 
 
 def test_function_recursive(test_case):
@@ -111,9 +95,26 @@ def test_function_recursive(test_case):
     else:
         print("Fail!")
 
+if __name__ == "__main__":
+    array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    target = 4
+    index = 4
+    test_case = [array, target, index]
+    test_function(test_case)
 
-array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-target = 4
-index = 4
-test_case = [array, target, index]
-test_function_recursive(test_case)
+    array = [1, 2]
+    target = -20
+    index = -1
+    test_case = [array, target, index]
+    # test_function(test_case)
+
+    array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    target = 100
+    index = -1
+    test_case = [array, target, index]
+    # test_function(test_case)
+    array = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    target = 4
+    index = 4
+    test_case = [array, target, index]
+    test_function_recursive(test_case)
