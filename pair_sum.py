@@ -1,3 +1,22 @@
+def udacity_pair_sum_solution(arr, target):
+    arr.sort()
+
+    front_index = 0
+    back_index = len(arr) - 1
+
+    while front_index < back_index:
+        front = arr[front_index]
+        back = arr[back_index]
+
+        if front + back == target:
+            return [front, back]
+        elif front + back < target:
+            front_index += 1
+        else:
+            back_index += 1
+        return [None, None]
+
+
 def find_sum(value, arr, target):
     for a in arr:
         if (a + value == target):
@@ -9,6 +28,7 @@ def find_sum(value, arr, target):
                 arr.append(value)
                 arr.append(a)
             return arr
+
 
 def pair_sum(arr, target):
     """
@@ -23,15 +43,17 @@ def pair_sum(arr, target):
             return find_sum(value, arr[(index + 1):], target)
     return [None, None]
 
+
 def test_function(test_case):
     input_list = test_case[0]
-    target =test_case[1]
+    target = test_case[1]
     solution = test_case[2]
     output = pair_sum(input_list, target)
     if output == solution:
         print("Pass")
     else:
         print("False")
+
 
 input_list = [2, 7, 11, 15]
 target = 9
