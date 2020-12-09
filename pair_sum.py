@@ -1,8 +1,14 @@
 def find_sum(value, arr, target):
     for a in arr:
         if (a + value == target):
-            return(sorted([a, value]))
-    return
+            arr = []
+            if a < value:
+                arr.append(a)
+                arr.append(value)
+            else:
+                arr.append(value)
+                arr.append(a)
+            return arr
 
 def pair_sum(arr, target):
     """
