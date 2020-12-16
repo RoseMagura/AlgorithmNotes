@@ -23,48 +23,100 @@ class Graph:
 def dijkstra(graph, source):
     # Declare and initialize result, unvisited, and path
     result = dict()
-    unvisited = graph.nodes
+    unvisited = set()
+    for value in graph.nodes:
+        unvisited.add(value)
+    # print('at beginning', str(options))
+    path = dict()
+
     unvisited.remove(source)
     result[source] = 0
 
+    options = graph.nodes
+
+    print(graph.nodes)
     for value in unvisited:
         result[value] = float('inf')
-
-    path = dict()
-
-    # As long as unvisited is non-empty
-    while unvisited: 
-        # 1. Find the unvisited node having smallest known distance 
-        # from the source node.
-        shortest = float('inf')
+    
+    shortest = float('inf')
+    while unvisited:
         node = unvisited.pop()
+        # find most direct path to source
         if source in graph.neighbours[node]:
             dist = graph.distances[(source, node)]
             if(dist < shortest):
                 shortest = dist
                 path[source] = node
             result[node] = dist
-        else:
-            cur_node = node
-            sum = 0
-            while source not in graph.neighbours[cur_node]:
-                for n in graph.neighbours[cur_node]:
-                    if graph.distances[(cur_node, n)] < shortest:
-                        shortest = graph.distances[(cur_node, n)]
-                        shortest_node = n
-                # print('NODE', str(cur_node))
-                # print('SHORTEST', str(shortest_node))
-                cur_node = shortest_node
-                sum += shortest + graph.distances[(source, shortest_node)]
-                # print(source in graph.neighbours[cur_node], sum)
-            result[node] = sum
-        # 2. For the current node, find all the unvisited neighbours. For this, you have calculate the distance of each unvisited neighbour.
+        cur_node = node
+        sum = 0
         
-        # 3. If the calculated distance of the unvisited neighbour is less than the already known distance in result dictionary, update the shortest distance in the result dictionary.        
+        def traverse(start, end, options):
+            total = 0
+            options.remove(start)
+            while start is not end:
+                print(start)
+                distances = list()
+                print(graph.neighbours[start])
+                for n in graph.neighbours[start]:
+                    if n in options:
+                        distances.append((n, graph.distances[(start, n)]))
+                        
+                distances.sort(key = lambda x: x[1])
+                next = []
+                print(distances)
+                next.append(distances[0])
+                min = distances[0][1]
+                distances.remove(next[0])
+                for item in distances:
+                    if item[1] == min:
+                        next.append(item)
+                start = next[0][0]
+                total += next[0][1]
+                print('REMOVING', str(start))
+                options.remove(next[0][0])
+            print(total)
+            return total
 
-        # 4. If there is an update in the result dictionary, you need to update the path dictionary as well for the same key.
-                    
-        # 5. Remove the current node from the unvisited set.
+        if node == 'C':
+            print(options)
+            indirect = traverse(node, source, options) 
+            if indirect < result[node]:
+                result[node] = indirect
+        
+        # if node == 'E':
+        #     indirect = traverse(node, source, options) 
+        #     if indirect < result[node]:
+        #         result[node] = indirect
+            # while cur_node is not source and cur_node in options:
+                # print('starting loop')
+            
+
+
+                    # if graph.distances[(cur_node, n)] < shortest:
+                    #     shortest = graph.distances[(cur_node, n)]
+                    #     cur_node = n
+                    #     # sum += graph.distances[(cur_node, n)]
+                    #     print(shortest)
+
+        # if(sum < result[node]):
+        #     result[node] = sum
+    # As long as unvisited is non-empty
+
+    # 1. Find the unvisited node having smallest known distance 
+    # from the source node.
+    
+    # 2. For the current node, find all the unvisited neighbours.
+    #  For this, you have calculate the distance of each unvisited neighbour.
+
+    # 3. If the calculated distance of the unvisited neighbour is less 
+    # than the already known distance in result dictionary, update the
+    # shortest distance in the result dictionary.        
+
+    # 4. If there is an update in the result dictionary, you need 
+    # to update the path dictionary as well for the same key.
+                
+    # 5. Remove the current node from the unvisited set.
 
     return result
 
@@ -81,7 +133,8 @@ testGraph.add_edge('B','C',1)
 testGraph.add_edge('C','E',2)
 testGraph.add_edge('E','D',1)
 
-# print(dijkstra(testGraph, 'A') ==  {'A': 0, 'D': 2, 'B': 3, 'E': 3, 'C': 4})
+# if(dijkstra(testGraph, 'A') ==  {'A': 0, 'D': 2, 'B': 3, 'E': 3, 'C': 4}):
+#     print('Pass')
 
 # Test 2
 graph = Graph()
@@ -112,4 +165,7 @@ graph.add_edge('E', 'F', 2)
 graph.add_edge('C', 'E', 1)
 
 print(dijkstra(graph, 'A'))
-# print(dijkstra(graph, 'A') == {'A': 0, 'C': 3, 'B': 5, 'E': 4, 'D': 2, 'F': 6})
+# if(dijkstra(graph, 'A') == {'A': 0, 'C': 3, 'B': 5, 'E': 4, 'D': 2, 'F': 6}):
+#     print('Pass')
+# else:
+#     print('Fail')
