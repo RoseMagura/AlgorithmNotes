@@ -40,6 +40,8 @@ def dijkstra(graph, source):
     
     shortest = float('inf')
     while unvisited:
+        options = ['A', 'B', 'C', 'D', 'E', 'F']
+
         node = unvisited.pop()
         # find most direct path to source
         if source in graph.neighbours[node]:
@@ -51,48 +53,53 @@ def dijkstra(graph, source):
         cur_node = node
         sum = 0
         
-        def traverse(start, end, options):
+        def find_distances(start, end, options):
             total = 0
-            options.remove(start)
+            # print(start, end)
             while start is not end:
-                print(start)
                 distances = list()
-                print(graph.neighbours[start])
                 for n in graph.neighbours[start]:
                     if n in options:
                         distances.append((n, graph.distances[(start, n)]))
                         
                 distances.sort(key = lambda x: x[1])
-                next = []
-                print(distances)
-                next.append(distances[0])
+                upcoming = []
+                upcoming.append(distances[0])
                 min = distances[0][1]
-                distances.remove(next[0])
+                distances.remove(upcoming[0])
                 for item in distances:
                     if item[1] == min:
-                        next.append(item)
-                start = next[0][0]
-                total += next[0][1]
-                print('REMOVING', str(start))
-                options.remove(next[0][0])
-            print(total)
+                        upcoming.append(item)
+                start = upcoming[0][0]
+                total += upcoming[0][1]
+                options.remove(upcoming[0][0])
             return total
 
-        if node == 'C':
-            print(options)
-            indirect = traverse(node, source, options) 
-            if indirect < result[node]:
-                result[node] = indirect
-        
-        # if node == 'E':
-        #     indirect = traverse(node, source, options) 
-        #     if indirect < result[node]:
-        #         result[node] = indirect
+        def traverse(start, end, options):
+            # total = 0
+            options.remove(start)
+            print('starting with', str(start))
+            total = find_distances(start, end, options)
+            print(total)
+            # iterations = len(upcoming)
+            # print(upcoming)
+
+            # counter = 0
+            # all_lengths = []
+            # if iterations > 1 and node == 'F':
+            #     print(start)
+            #     for vertex in upcoming:
+            #         print(vertex[0])
+                
+            return total
+
+        # print('OPTIONS', str(options))
+        indirect = traverse(node, source, options) 
+        if indirect < result[node]:
+            result[node] = indirect
+
             # while cur_node is not source and cur_node in options:
                 # print('starting loop')
-            
-
-
                     # if graph.distances[(cur_node, n)] < shortest:
                     #     shortest = graph.distances[(cur_node, n)]
                     #     cur_node = n
