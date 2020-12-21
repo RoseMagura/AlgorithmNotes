@@ -41,7 +41,7 @@ def udacity_dijkstra(graph, start_node, end_node):
         
         # Sort the distance_dict, and pick the key:value having smallest distance
         current_node, node_distance = sorted(distance_dict.items(), key=lambda x: x[1])[0]
-        
+        print(current_node, node_distance)
         # Remove the current node from the distance_dict, and store the same key:value in shortest_distance
         shortest_distance[current_node] = distance_dict.pop(current_node)
 
@@ -148,8 +148,10 @@ graph.add_edge('B', 'C', 1)
 graph.add_edge('C', 'E', 2)
 graph.add_edge('E', 'D', 1)
 
-if(dijkstra(graph, 'A') == {'A': 0, 'D': 2, 'B': 3, 'E': 3, 'C': 4}):
-    print('Pass')
+# print(
+#     udacity_dijkstra(graph, graph.nodes.get('A'), graph.nodes.get('E')))
+    # == {'A': 0, 'D': 2, 'B': 3, 'E': 3, 'C': 4}):
+    # print('Pass')
 
 # Test 2
 graph = Graph()
