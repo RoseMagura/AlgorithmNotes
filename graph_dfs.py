@@ -41,17 +41,21 @@ graph1.add_edge(nodeH,nodeP)
 graph1.add_edge(nodeS,nodeR)
 
 def dfs_search(root_node, search_value):
-    node = root_node
-    if node.value == search_value:
-        return node
-    for child in node.children:
-        if child.value == search_value:
-            return child
-        if child.children:
-            for c in child.children:
-                if c.value == search_value:
-                    return c
+    visited = set()
+    stack = [root_node]
+
+    while len(stack) > 0:
+        current_node = stack.pop()
+        visited.add(current_node)
+
+        if current_node.value == search_value:
+            return current_node
+
+        for child in current_node.children:
+            if(child not in visited) and child not in stack:
+                stack.append(child)
+
 
 assert nodeA == dfs_search(nodeS, 'A')
 assert nodeS == dfs_search(nodeP, 'S')
-assert nodeR == dfs_search(nodeH, 'R')
+assert nodeR == dfs_search(nodeH, 'R') 
