@@ -5,12 +5,11 @@ def min_operations(target):
     output: number of steps (as an integer)
     """
     steps = 0
-    start = 0
-    while start < target:
-        if (start + 1) >= (start * 2): 
-            start += 1
+    while target != 0:
+        if target % 2 == 0:
+            target = target // 2
         else:
-            start *= 2
+            target -= 1
         steps += 1
     return steps
 
