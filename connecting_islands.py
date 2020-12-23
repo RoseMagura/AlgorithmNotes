@@ -27,11 +27,18 @@ def get_minimum_cost_of_connecting(num_islands, bridge_config):
         graph.append(bridges)
     # print('GRAPH', str(graph))
     minHeap = list()
-
-    # for g in graph:
-    #     heapq.heappush(minHeap, g)
+    visited = dict()
+    for k in range(1, num_islands+ 1):
+        visited[k] = False
     heapq.heappush(minHeap, graph[1])
     print(minHeap)
+    while (len(minHeap)) > 0:
+        min = heapq.heappop(minHeap)
+        print('MIN', str(min[0]))
+        if visited[min[0][1]] is False:
+            total_cost += min[0][0]
+            visited[min[0][1]] = True
+    print(visited)
     return total_cost
 
 
