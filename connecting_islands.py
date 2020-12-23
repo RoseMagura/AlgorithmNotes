@@ -1,6 +1,38 @@
 import heapq
 
 
+def create_graph(num_islands, bridge_config):
+    graph = [list() for _ in range(num_islands + 1)]
+    
+    for config in bridge_config:
+        source = config[0]
+        destination = config[1]
+        cost = config[2]
+
+        graph[source].append((destination, cost))
+        graph[destination].append((source, cost))
+    
+    return graph
+
+def minimum_cost(graph):
+    start_vertex = 1
+    visited = [False for _ in range(len(graph) + 1)]
+
+    minHeap = [(0, start_vertex)]
+    total_cost = 0
+    while (len(minHeap)) > 0:
+            cost, current_vertex = heapq.heappop(minHeap)
+            if visited[current_vertex]:
+                continue
+            total_cost += cost
+
+            for neighbor, edge_cost in graph[current_vertex]:
+                heapq.heappush(minHeap, (edge_cost, neighbor))
+            
+            visited[current_vertex] = True
+
+    return total_cost
+
 def get_minimum_cost_of_connecting(num_islands, bridge_config):
     """
     :param: num_islands - number of islands
@@ -10,36 +42,8 @@ def get_minimum_cost_of_connecting(num_islands, bridge_config):
     TODO complete this method to returh minimum cost of connecting all 
     islands
     """
-    total_cost = 0
-    graph = []
-    # empty list for 0 position
-    graph.append([])
-    # setting up graph
-    for i in range(1, num_islands + 1):
-        bridges = []
-        for bridge in bridge_config:
-            if(i in bridge[:2]):
-                target_index = bridge.index(i)
-                if target_index == 0:
-                    bridges.append(tuple(reversed(bridge[1:])))
-                else:
-                    bridges.append((bridge[2], bridge[0]))
-        graph.append(bridges)
-    # print('GRAPH', str(graph))
-    minHeap = list()
-    visited = dict()
-    for k in range(1, num_islands+ 1):
-        visited[k] = False
-    heapq.heappush(minHeap, graph[1])
-    print(minHeap)
-    while (len(minHeap)) > 0:
-        min = heapq.heappop(minHeap)
-        print('MIN', str(min[0]))
-        if visited[min[0][1]] is False:
-            total_cost += min[0][0]
-            visited[min[0][1]] = True
-    print(visited)
-    return total_cost
+    graph = create_graph(num_islands, bridge_config)
+    return minimum_cost(graph)
 
 
 def test_function(test_case):
@@ -57,20 +61,20 @@ def test_function(test_case):
 num_islands = 4
 bridge_config = [[1, 2, 1], [2, 3, 4], [1, 4, 3], [4, 3, 2], [1, 3, 10]]
 solution = 6
-print(get_minimum_cost_of_connecting(num_islands, bridge_config))
+
 test_case = [num_islands, bridge_config, solution]
-# test_function(test_case)
+test_function(test_case)
 
 num_islands = 5
 bridge_config = [[1, 2, 5], [1, 3, 8], [2, 3, 9]]
 solution = 13
 
 test_case = [num_islands, bridge_config, solution]
-# test_function(test_case)
+test_function(test_case)
 
 num_islands = 5
 bridge_config = [[1, 2, 3], [1, 5, 9], [2, 3, 10], [4, 3, 9]]
 solution = 31
 
 test_case = [num_islands, bridge_config, solution]
-# test_function(test_case)
+test_function(test_case)
