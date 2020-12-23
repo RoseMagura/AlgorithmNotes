@@ -1,6 +1,13 @@
 from collections import defaultdict
 import math
 
+
+class GraphEdge(object):
+    def __init__(self, destinationNode, distance):
+        self.node = destinationNode
+        self.distance = distance
+
+
 class Graph:
     def __init__(self):
         self.nodes = set()                   # A set cannot contain duplicate nodes
@@ -26,21 +33,21 @@ class Graph:
 
 
 def udacity_dijkstra(graph, start_node, end_node):
-    # Create a dictionary that stores the distance to all nodes in the form of node:distance as key:value 
+    # Create a dictionary that stores the distance to all nodes in the form of node:distance as key:value
     # Assume the initial distance to all nodes is infinity.
-    # Use math.inf as a predefined constant equal to positive infinity 
+    # Use math.inf as a predefined constant equal to positive infinity
     distance_dict = {node: math.inf for node in graph.nodes}
-    
-    
+
     # Build a dictionary that will store the "shortest" distance to all nodes, wrt the start_node
     shortest_distance = {}
 
     distance_dict[start_node] = 0
-    
+
     while distance_dict:
-        
+
         # Sort the distance_dict, and pick the key:value having smallest distance
-        current_node, node_distance = sorted(distance_dict.items(), key=lambda x: x[1])[0]
+        current_node, node_distance = sorted(
+            distance_dict.items(), key=lambda x: x[1])[0]
         print(current_node, node_distance)
         # Remove the current node from the distance_dict, and store the same key:value in shortest_distance
         shortest_distance[current_node] = distance_dict.pop(current_node)
@@ -48,12 +55,13 @@ def udacity_dijkstra(graph, start_node, end_node):
         # Check for each neighbour of current_node, if the distance_to_neighbour is smaller than the alreday stored distance, update the distance_dict
         for edge in current_node.edges:
             if edge.node in distance_dict:
-                
+
                 distance_to_neighbour = node_distance + edge.distance
                 if distance_dict[edge.node] > distance_to_neighbour:
                     distance_dict[edge.node] = distance_to_neighbour
-    
+
     return shortest_distance[end_node]
+
 
 def traverse(start, end, options):
     all_totals = []
@@ -148,10 +156,8 @@ graph.add_edge('B', 'C', 1)
 graph.add_edge('C', 'E', 2)
 graph.add_edge('E', 'D', 1)
 
-# print(
-#     udacity_dijkstra(graph, graph.nodes.get('A'), graph.nodes.get('E')))
-    # == {'A': 0, 'D': 2, 'B': 3, 'E': 3, 'C': 4}):
-    # print('Pass')
+if(dijkstra(graph, 'A') == {'A': 0, 'D': 2, 'B': 3, 'E': 3, 'C': 4}):
+    print('Pass')
 
 # Test 2
 graph = Graph()
