@@ -29,11 +29,36 @@ def knapsack_recursive(capacity, items, lastIndex):
 # An item can be represented as a namedtuple
 Item = collections.namedtuple('Item', ['weight', 'value'])
 
+def create_lookup_table(knapsack_max_weight, items):
+    lookup_table = [0 for _ in range(knapsack_max_weight + 1) ]
+    for item in items:
+        # replace value if higher
+        if lookup_table[item.weight] < item.value:
+            lookup_table[item.weight] = item.value
+    return lookup_table
+
 def knapsack_max_value(knapsack_max_weight, items):
     """
     Get the maximum value of the knapsack.
     """
-    pass
+    lookup_table = create_lookup_table(knapsack_max_weight, items)
+    print(lookup_table)
+    capacity = knapsack_max_weight
+    knapsack_max_value = lookup_table[knapsack_max_weight]
+    for item in items:
+        print('CAP', str(capacity))
+        if item.weight <= capacity:
+            print('can add')
+            # do not pick the item
+            valueA = knapsack_max_value # no change
+            # pick the item
+            valueB = item.value + lookup_table[capacity - item.weight]
+            capacity -= item.weight
+            print('VA', str(valueA), 'VB', str(valueB))
+            print(max(valueA, valueB))
+            lookup_table[capacity] = max(valueA, valueB)
+    print(lookup_table)
+    return knapsack_max_value
 
 tests = [
     {
