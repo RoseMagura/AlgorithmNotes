@@ -13,30 +13,30 @@ def lcs(string_a, string_b):
             substring_a = string_a[:(i + 1)]
             substring_b = string_b[:(j + 1)]
             print(substring_a, ',', substring_b)
-            match = False
-            for char in substring_b:
-                for char2 in substring_a:
-                    if(char == char2):
-                        match = True
-            top = matrix[j - 1][i - 1]
-            if match:
-                print('Match. CHECKING TOP LEFT GRID CELL')
-                print(matrix)
-                values.append(top + 1)
+            if substring_a[-1] == substring_b[-1]:
+                match = True
             else:
-                print('Not match. CHECKING LEFT AND TOP CELLS')
-                left = matrix[j][i - 1]
-                print(max(left, top))
-                values.append(max(left, top))
+                match = False
 
-            # values.append(i)
+            if match:
+                top_left = matrix[j][i]
+                print('Match. CHECKING TOP LEFT GRID CELL')
+                # print(matrix)
+                # print(j, i)
+                values.append(top_left + 1)
+            else:
+                top = matrix[j][i + 1]
+                left = values[i]
+                print(j, i)
+                values.append(max(left, top))
         matrix.append(values)
     print(matrix)
-    return 
+    return matrix[-1][-1]
 
 ## Test cell
 
-lcs('ABCD', 'BD')
+if lcs('ABCD', 'BD') == 2:
+    print('Pass')
 
 # Run this cell to see how your function is working
 test_A1 = "WHOWEEKLY"
