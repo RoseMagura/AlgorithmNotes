@@ -19,17 +19,33 @@ def max_returns(prices):
         if(prices[i] > max_price_value):
             max_price_value = prices[i]
             max_price_index = i
+        max_profit = max_price_value - min_price_value
 
-    # print('MIN', str(min_price_index), str(min_price_value))
-    # print('MAX', str(max_price_index), str(max_price_value))
     if max_price_index < min_price_index:
         return 0
 
     return max_price_value - min_price_value
 
 
-prices = [3, 4, 7, 8, 6]
-# print(max_returns(prices))
+def max_returns_udacity_solution(arr):
+    min_price_index = 0
+    max_price_index = 1
+    current_min_price_index = 0
+
+    if len(arr) < 2:
+        return
+
+    for index in range(1, len(arr)):
+        # current minimum price
+        if arr[index] < arr[current_min_price_index]:
+            current_min_price_index = index
+
+        # current max profit
+        if arr[max_price_index] - arr[min_price_index] < arr[index] - arr[current_min_price_index]:
+            max_price_index = index
+            min_price_index = current_min_price_index
+    max_profit = arr[max_price_index] - arr[min_price_index]
+    return max_profit
 
 # Test Cases
 
