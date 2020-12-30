@@ -38,6 +38,7 @@ def coin_change_solution_one(coins, amount):
             for coin in coins:
                 if i <= amount - coin:
                     res[i+coin] = min(res[i] + 1, res[i+coin])
+                    print(res)
         i += 1
 
     if res[amount] == float('inf'):
@@ -82,7 +83,7 @@ def test_function(test_case):
     arr = test_case[0]
     amount = test_case[1]
     solution = test_case[2]
-    output = coin_change(arr, amount)
+    output = coin_change_solution_one(arr, amount)
     if output == solution:
         print("Pass")
     else:
@@ -99,10 +100,10 @@ arr = [1, 4, 5, 6]
 amount = 23
 solution = 4
 test_case = [arr, amount, solution]
-test_function(test_case)
+# test_function(test_case)
 
 arr = [5, 7, 8]
 amount = 2
 solution = -1
 test_case = [arr, amount, solution]
-test_function(test_case)
+# test_function(test_case)
