@@ -1,0 +1,27 @@
+Problem One:
+
+If the value is the tail, it is queued for deletion.
+
+When you access that value with get, it needs to be removed from 
+the tail and appended to the front.
+
+Otherwise, the value can be left alone?
+
+Why am I using a doubly linked list if I'm just using it like a normal 
+one?
+
+Problem Two:
+
+Using recursion, I can infinitely travel into the subdirectories.
+
+That's good. Now, the next step is to keep going into the subdirectories
+until I reach file(s). Return those files. Then, loop through to see 
+if any have the suffix.
+
+Once you get to the "bottom" of the subdirectory, get back up to the
+beginning to move on to the next one.
+
+Files is initialized as an empty list. As you traverse the subdirectories,
+add files as they are found. Once all have been found, then search
+through and figure out which have the suffix.
+

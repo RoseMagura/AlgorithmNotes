@@ -1,0 +1,9 @@
+Encrypting
+[X] Find leaves
+
+[X] Go from the bottom up to get all the codes (in reverse order)
+
+[] Combine all the codes for the solution
+
+Decrypting
+[] ???
