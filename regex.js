@@ -19,3 +19,15 @@ console.log('A3', answerThree);
 
 const answerFour = checkName('Frank Roosevelt', false);
 console.log('A4', answerFour);
+
+const repeatRegex = (numberPhrase) => {
+    // Caret means that part will come at the beginning
+    // lowercase 'd' is a global search for digits
+    // \s is for space
+    let reRegex = /^(\d+)\s\1\s\1$/; 
+    let result = reRegex.test(numberPhrase);
+    return result;
+}
+
+console.log(repeatRegex('42 42 42'));
+console.log(repeatRegex('42 42 42 42'));
