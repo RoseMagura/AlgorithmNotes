@@ -5,20 +5,15 @@ const sumPrimes = (num) => {
     }
     
     while(num > 1) {
-        console.log(num);
         // check if number is prime
         let divisor = 2;
         while (divisor < num){
-            // console.log(divisor, num);
             if(num % divisor === 0) {
-                // console.log('not prime');
                 break;
             }
             divisor++;
         }
-        // console.log(num, 'divisor', divisor);
         if(divisor >= num) {
-            // console.log(num, 'is prime');
             sum += num;
         }
         num--;
@@ -28,4 +23,3 @@ const sumPrimes = (num) => {
 
 console.log(sumPrimes(10));
 console.log(sumPrimes(977));
-// sumPrimes(10);
