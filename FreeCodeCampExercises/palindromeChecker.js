@@ -6,7 +6,6 @@ const palindromeChecker = (str) => {
             lettersAndNum.push(char.toLowerCase());
         }
     }
-    // console.log(lettersAndNum);
     let start = 0;
     let end = lettersAndNum.length - 1;
     while(start < end) {
