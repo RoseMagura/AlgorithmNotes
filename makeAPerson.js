@@ -4,35 +4,44 @@ class Person {
             throw new Error('invalid arguments');
         }
         
-        this.firstName = firstAndLast.split(' ')[0];
-        this.lastName = firstAndLast.split(' ')[1];
-        this.fullName = firstAndLast;
+        let fullName = firstAndLast;
 
         this.getFirstName = function () {
-            return this.firstName;
+            return fullName.split(' ')[0];
         }
 
         this.getLastName = function () {
-            return this.lastName;
+            return fullName.split(' ')[1];
         }
 
         this.getFullName = function () {
-            return this.fullName;
+            return fullName;
         };
 
         this.setFirstName = function (first) {
             checkError(arguments);
-            this.firstName = first;
+            fullName = `${first} ${fullName.split(' ')[1]}`;
         }
 
         this.setLastName = function (last) {
             checkError(arguments);
-            this.lastName = last;
+            fullName = `${fullName.split(' ')[0]} ${last}`;
         }
 
         this.setFullName = function (firstAndLast) {
             checkError(arguments);
-            this.fullName = firstAndLast;
+            fullName = firstAndLast;
+
+        }
+
+        this.setLastName = function (last) {
+            checkError(arguments);
+            fullName = fullName.split(' ')[0] + ' ' + last;
+        }
+
+        this.setFullName = function (firstAndLast) {
+            checkError(arguments);
+            fullName = firstAndLast;
         }
     }
 }
@@ -43,7 +52,6 @@ const checkError = (variable) => {
     }
 }
 
-// const fail = new Person(9000);
 const bob = new Person('Bob Ross');
-console.log(bob);
-console.log(Object.keys(bob).length);
+bob.setFirstName('Haskell');
+console.log(bob.getFullName());
