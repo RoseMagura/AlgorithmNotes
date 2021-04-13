@@ -31,9 +31,12 @@ const telephoneCheck = (str) => {
 
     let sections = [];
     const parts = str.split('-');
-    console.log(parts);
+
     parts.forEach(p => {
-        if(p.includes(' ')){
+        if (p.includes('(') && p.includes(')')) {
+            p = p.replace(/\(/g, '').replace(/\)/g, '');
+        }
+        if (p.includes(' ')) {
             const elements = p.split(' ');
             elements.forEach(e => sections.push(e));
         } else {
@@ -41,17 +44,15 @@ const telephoneCheck = (str) => {
         }
     });
 
-    if(sections.length === 3){
-        if(sections[0].length !== 3 || sections[1].length !== 3 || sections[2].length !== 4) {
+    if (sections.length === 3) {
+        if (sections[0].length !== 3 || sections[1].length !== 3 || sections[2].length !== 4) {
             return false;
         }
     } else if (sections.length === 4) {
-        if(sections[0].length !== 1 || sections[1].length !== 3 || sections[2].length !== 3 || 
+        if (sections[0].length !== 1 || sections[1].length !== 3 || sections[2].length !== 3 ||
             sections[3].length !== 4) {
             return false;
         }
-    } else {
-        return false;
     }
 
     const digitsOnly = str.replace(/\s/g, '').replace(/-/g, '')
@@ -74,12 +75,9 @@ const telephoneCheck = (str) => {
     return true;
 }
 
-const test = (input, output) => {
-    input === output ? console.log('Pass') : console.log('Fail');
-}
-const res = telephoneCheck('1 555-555-5555');
 
-// console.log(res);
-// console.log(telephoneCheck('(6054756961)'));
-// console.log(telephoneCheck("10 (757) 622-7382"));
-// console.log(telephoneCheck("-1 (757) 622-7382"));
+console.log(telephoneCheck('1 555-555-5555')); // should return true
+console.log(telephoneCheck("1 (555) 555-5555")); // should return true
+console.log(telephoneCheck("5555555555")); // should return true
+console.log(telephoneCheck("(555)555-5555")); // should return true
+console.log(telephoneCheck("1(555)555-5555")); // should return true
