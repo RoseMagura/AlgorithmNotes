@@ -30,9 +30,12 @@ def manipulateArr(myList):
     newArr.append(leastGreatest or -1)
   return newArr
 
-# print(manipulateArr([0, 5, 1, 3, 2, 9, 7, 6, 4]))
+output = manipulateArr([0, 5, 1, 3, 2, 9, 7, 6, 4])
+assert output == [1, 6, 2, 4, 4, -1, -1, -1, -1]
 
-print(manipulateArr([8, 58, 71, 18, 31, 32, 63, 92, 43, 3, 91, 93, 25, 80, 28]))
+input = [8, 58, 71, 18, 31, 32, 63, 92, 43, 3, 91, 93, 25, 80, 28]
+output = manipulateArr(input)
+assert output == [18, 63, 80, 25, 32, 43, 80, 93, 80, 25, 93, -1, 28, -1, -1]
 
 output = manipulateArr([1, 2, 3])
 assert output == [2, 3, -1]
