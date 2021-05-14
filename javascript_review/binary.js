@@ -22,3 +22,8 @@ for(let i = binary.length - 1; i >= 0; i--){
 consec > backwardsConsec 
     ? console.log(consec) 
     : console.log(backwardsConsec);
+
+// More efficient solution from HackerRack discussion
+const solution = () => {
+    console.log(n.toString(2).split('0').sort((a, b) => a < b)[0].length);
+}
