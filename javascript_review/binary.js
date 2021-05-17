@@ -11,7 +11,6 @@ for(let i = 0; i < binary.length; i++){
 
 let backwardsConsec = 0;
 for(let i = binary.length - 1; i >= 0; i--){
-    console.log(binary[i]);
     if(binary[i] === '1'){
         backwardsConsec++;
     } else {
@@ -27,3 +26,5 @@ consec > backwardsConsec
 const solution = () => {
     console.log(n.toString(2).split('0').sort((a, b) => a < b)[0].length);
 }
+
+solution();
