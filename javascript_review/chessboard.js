@@ -1,6 +1,7 @@
 /**
  * @param {string} coordinates
  * @return {boolean}
+ * Source: Leet Code
  */
 const squareIsWhite = coordinates => {
     const startsOnBlack = new Set(['a', 'c', 'e', 'g']);
