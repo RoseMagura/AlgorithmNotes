@@ -38,6 +38,7 @@ function BinarySearchTree() {
         let count = 0;
         const traverse = (currNode, count) => {
             if(currNode){
+                console.log(currNode.data);
                 count++;
                 if(currNode.left === null && currNode.right === null){
                     if(count - 1 > max){
@@ -50,10 +51,23 @@ function BinarySearchTree() {
                 traverse(currNode.right, count);
             }
         }
-
         traverse(root, count);
         return max;
     }; // End of function getHeight
+
+    this.levelOrder = function(root) {
+        const queue = [root];
+        while(queue.length){
+            const currNode = queue.shift();
+            process.stdout.write(currNode.data + ' ');
+            if(currNode.left){
+                queue.push(currNode.left);
+            } 
+            if(currNode.right){
+                queue.push(currNode.right);
+            }
+        }
+    }
 }; // End of function BinarySearchTree
 
 const tree = new BinarySearchTree();
@@ -61,9 +75,10 @@ let root = null;
 
 // const values = _input.split('\n').map(Number);
 
-const values = [7, 3, 5, 2, 1, 4, 6, 7];
+const values = [7, 3, 5, 2, 1, 4, 7];
 for (var i = 1; i < values.length; i++) {
     root = tree.insert(root, values[i]);
 }
 
-console.log(tree.getHeight(root));
+// console.log(tree.getHeight(root));
+tree.levelOrder(root);
